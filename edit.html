@@ -2,68 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Digital Business Card</title>
+<title>Edit Card</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
-    background: #0A0F1F; /* Dark navy */
-    font-family: Arial, sans-serif;
+    background: #0A0F1F;
+    font-family: Arial;
     color: white;
     padding: 20px;
-    text-align: center;
 }
 
-.card {
-    background: #111827;
-    border-radius: 15px;
-    padding: 25px;
-    max-width: 400px;
-    margin: auto;
-    box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
 }
 
-img {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #1E3A8A; /* Navy border */
-}
-
-h2 {
-    margin: 15px 0 5px;
-    font-size: 26px;
-}
-
-h3 {
-    margin: 5px 0;
-    font-weight: normal;
-    color: #9CA3AF;
-}
-
-.info { 
-    margin: 10px 0; 
-    color: #D1D5DB;
-}
-
-.button {
+button {
     background: #1E3A8A;
     color: white;
-    padding: 12px 18px;
+    padding: 12px;
+    width: 100%;
     border-radius: 8px;
-    display: block;
-    margin: 10px auto;
-    text-decoration: none;
-    width: 80%;
-}
-.button:hover {
-    background: #3B82F6;
-}
-
-.edit-btn {
-    background: black;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 </style>
@@ -71,21 +35,21 @@ h3 {
 
 <body>
 
-<div class="card">
-    <img id="profilePhoto" src="">
+<h2>Edit Your Business Card</h2>
 
-    <h2 id="name"></h2>
-    <h3 id="title"></h3>
+<input id="nameInput" placeholder="Your Name">
+<input id="titleInput" placeholder="Title / Position">
+<input id="companyInput" placeholder="Company (optional)">
+<textarea id="bioInput" placeholder="Short bio"></textarea>
 
-    <p class="info" id="company"></p>
-    <p class="info" id="bio"></p>
+<input id="phoneInput" placeholder="Phone Number">
+<input id="emailInput" placeholder="Email Address">
+<input id="websiteInput" placeholder="Website URL">
 
-    <a id="callButton" class="button" href="#">Call</a>
-    <a id="emailButton" class="button" href="#">Email</a>
-    <a id="websiteButton" class="button" href="#">Website</a>
+<label style="margin-top:10px;">Upload Photo:</label>
+<input type="file" accept="image/*" id="photoFile">
 
-    <a href="edit.html" class="button edit-btn">Edit Card</a>
-</div>
+<button onclick="saveCard()">Save</button>
 
 <script src="script.js"></script>
 
