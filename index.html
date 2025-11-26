@@ -4,27 +4,90 @@
 <meta charset="UTF-8">
 <title>Digital Business Card</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body { font-family: Arial; padding: 20px; max-width: 500px; margin: auto; }
-.card { border: 1px solid #ccc; padding: 20px; border-radius: 10px; text-align: center; }
-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; }
-button { padding: 10px 20px; margin-top: 15px; }
+body {
+    background: #0A0F1F; /* Dark navy */
+    font-family: Arial, sans-serif;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.card {
+    background: #111827;
+    border-radius: 15px;
+    padding: 25px;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+}
+
+img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #1E3A8A; /* Navy border */
+}
+
+h2 {
+    margin: 15px 0 5px;
+    font-size: 26px;
+}
+
+h3 {
+    margin: 5px 0;
+    font-weight: normal;
+    color: #9CA3AF;
+}
+
+.info { 
+    margin: 10px 0; 
+    color: #D1D5DB;
+}
+
+.button {
+    background: #1E3A8A;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    display: block;
+    margin: 10px auto;
+    text-decoration: none;
+    width: 80%;
+}
+.button:hover {
+    background: #3B82F6;
+}
+
+.edit-btn {
+    background: black;
+    margin-top: 20px;
+}
+
 </style>
 </head>
+
 <body>
 
 <div class="card">
-    <img id="profilePhoto" src="" alt="Profile Photo">
+    <img id="profilePhoto" src="">
+
     <h2 id="name"></h2>
     <h3 id="title"></h3>
-    <p id="company"></p>
-    <p id="phone"></p>
-    <p id="email"></p>
-    <p id="website"></p>
-    <p id="bio"></p>
-    <button onclick="location.href='edit.html'">Edit Card</button>
+
+    <p class="info" id="company"></p>
+    <p class="info" id="bio"></p>
+
+    <a id="callButton" class="button" href="#">Call</a>
+    <a id="emailButton" class="button" href="#">Email</a>
+    <a id="websiteButton" class="button" href="#">Website</a>
+
+    <a href="edit.html" class="button edit-btn">Edit Card</a>
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
