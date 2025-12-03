@@ -2,28 +2,40 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Digital Business Card</title>
+<title>Greg St. Rose - Insurance Broker</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SOCIAL SHARING PREVIEW -->
+<meta property="og:title" content="Greg St. Rose - Insurance Broker">
+<meta property="og:description" content="Experienced insurance broker dedicated to helping individuals and businesses protect what matters most. Trusted guidance. Personalized coverage solutions.">
+<meta property="og:image" content="preview.jpg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="/">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Greg St. Rose - Insurance Broker">
+<meta name="twitter:description" content="Experienced insurance broker dedicated to helping individuals and businesses protect what matters most.">
+<meta name="twitter:image" content="preview.jpg">
 
 <style>
 body {
-    background: #020617; /* deep navy/black */
+    background: #020617;
     font-family: Arial, sans-serif;
     color: white;
     padding: 20px;
     text-align: center;
 }
 
-/* Fade-in animation */
+/* Fade Animation */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .card {
     background: #0b1220;
     border-radius: 18px;
-    padding: 28px 22px 24px;
+    padding: 28px 22px;
     max-width: 430px;
     margin: auto;
     box-shadow: 0 0 30px rgba(0,0,0,0.6);
@@ -31,7 +43,6 @@ body {
     border: 1px solid rgba(148,163,184,0.2);
 }
 
-/* Portrait photo like the one you sent */
 #profilePhoto {
     width: 220px;
     max-width: 75%;
@@ -40,33 +51,13 @@ body {
     border-radius: 16px;
     object-fit: cover;
     border: 4px solid #1E3A8A;
-    box-shadow: 0 0 15px rgba(15,23,42,0.8);
 }
 
-h2 {
-    margin: 18px 0 4px;
-    font-size: 26px;
-}
+h2 { margin: 18px 0 4px; font-size: 26px; }
+h3 { color: #9CA3AF; margin: 4px; font-size: 16px; }
 
-h3 {
-    margin: 4px 0 6px;
-    font-weight: normal;
-    color: #9CA3AF;
-    font-size: 16px;
-}
+.info { color: #E5E7EB; margin: 6px 0; font-size: 14px; }
 
-.info { 
-    margin: 6px 0; 
-    color: #E5E7EB;
-    font-size: 14px;
-}
-
-.subtle {
-    color: #9CA3AF;
-    font-size: 13px;
-}
-
-/* Buttons */
 .button {
     background: #1E3A8A;
     color: white;
@@ -82,45 +73,28 @@ h3 {
 .button:hover {
     background: #3B82F6;
     transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(37,99,235,0.4);
 }
 
 .button.secondary {
     background: transparent;
     border: 1px solid #4B5563;
 }
-.button.secondary:hover {
-    background: #111827;
-}
 
-/* Social buttons container */
 .social-row {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 6px;
-    flex-wrap: wrap;
+    display: flex; justify-content: center; gap: 8px;
+    margin-top: 6px; flex-wrap: wrap;
 }
 .social-btn {
     background: #020617;
-    border-radius: 999px;
     padding: 7px 11px;
-    font-size: 12px;
+    border-radius: 999px;
     color: #E5E7EB;
-    text-decoration: none;
     border: 1px solid #1f2937;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+    font-size: 12px;
+    text-decoration: none;
 }
-.social-btn span {
-    font-size: 14px;
-}
-.social-btn:hover {
-    background: #111827;
-}
+.social-btn:hover { background: #111827; }
 
-/* Small footer */
 .footer-note {
     margin-top: 10px;
     font-size: 11px;
@@ -136,34 +110,25 @@ h3 {
 
     <h2 id="name"></h2>
     <h3 id="title"></h3>
-
     <p class="info" id="company"></p>
     <p class="info" id="bio"></p>
-
-    <p class="subtle" id="location"></p>
+    <p class="info" id="location"></p>
 
     <a id="callButton" class="button" href="#">📞 Call</a>
     <a id="emailButton" class="button" href="#">✉️ Email</a>
     <a id="websiteButton" class="button secondary" href="#">🌐 Website</a>
-    <a id="vcardButton" class="button secondary" href="#" onclick="generateVCard(); return false;">💾 Save Contact</a>
+    <a id="vcardButton" class="button secondary" onclick="generateVCard(); return false;">💾 Save Contact</a>
+    <a class="button secondary" onclick="shareCard(); return false;">🔗 Share Card</a>
 
     <div class="social-row">
-        <a id="linkedinBtn" class="social-btn" href="#" target="_blank" style="display:none;">
-            <span>🔗</span><span>LinkedIn</span>
-        </a>
-        <a id="instagramBtn" class="social-btn" href="#" target="_blank" style="display:none;">
-            <span>📸</span><span>Instagram</span>
-        </a>
-        <a id="facebookBtn" class="social-btn" href="#" target="_blank" style="display:none;">
-            <span>📘</span><span>Facebook</span>
-        </a>
-        <a id="tiktokBtn" class="social-btn" href="#" target="_blank" style="display:none;">
-            <span>🎵</span><span>TikTok</span>
-        </a>
+        <a id="linkedinBtn" class="social-btn" href="#" target="_blank" style="display:none;">LinkedIn</a>
+        <a id="instagramBtn" class="social-btn" href="#" target="_blank" style="display:none;">Instagram</a>
+        <a id="facebookBtn" class="social-btn" href="#" target="_blank" style="display:none;">Facebook</a>
+        <a id="tiktokBtn" class="social-btn" href="#" target="_blank" style="display:none;">TikTok</a>
     </div>
 
     <div class="footer-note">
-        Tap buttons to call, email, or save contact.
+        Tap buttons to call, email, share, or save contact.
     </div>
 </div>
 
