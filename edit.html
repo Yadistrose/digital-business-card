@@ -2,170 +2,155 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Digital Business Card</title>
+<title>Edit Card (Private)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
-    background: #020617; /* deep navy/black */
-    font-family: Arial, sans-serif;
+    background: #020617;
+    font-family: Arial;
     color: white;
     padding: 20px;
+}
+
+/* Inputs */
+input, textarea {
+    width: 100%;
+    padding: 11px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: none;
+    background: #020617;
+    color: #E5E7EB;
+    border: 1px solid #1f2937;
+    font-size: 14px;
+}
+textarea { min-height: 70px; }
+
+label {
+    font-size: 13px;
+    color: #9CA3AF;
+}
+
+button {
+    background: #1E3A8A;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: none;
+    font-size: 15px;
+}
+
+/* Password lock */
+#lockScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
     text-align: center;
 }
 
-/* Fade-in animation */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-.card {
-    background: #0b1220;
-    border-radius: 18px;
-    padding: 28px 22px 24px;
-    max-width: 430px;
-    margin: auto;
-    box-shadow: 0 0 30px rgba(0,0,0,0.6);
-    animation: fadeInUp 0.6s ease-out;
-    border: 1px solid rgba(148,163,184,0.2);
-}
-
-/* Portrait photo like the one you sent */
-#profilePhoto {
-    width: 220px;
-    max-width: 75%;
-    aspect-ratio: 3/4;
-    height: auto;
-    border-radius: 16px;
-    object-fit: cover;
-    border: 4px solid #1E3A8A;
-    box-shadow: 0 0 15px rgba(15,23,42,0.8);
-}
-
-h2 {
-    margin: 18px 0 4px;
-    font-size: 26px;
-}
-
-h3 {
-    margin: 4px 0 6px;
-    font-weight: normal;
-    color: #9CA3AF;
-    font-size: 16px;
-}
-
-.info { 
-    margin: 6px 0; 
-    color: #E5E7EB;
-    font-size: 14px;
-}
-
-.subtle {
-    color: #9CA3AF;
-    font-size: 13px;
-}
-
-/* Buttons */
-.button {
-    background: #1E3A8A;
-    color: white;
-    padding: 11px 16px;
+#unlockInput {
+    width: 70%;
+    max-width: 260px;
+    padding: 11px;
+    margin-top: 15px;
     border-radius: 999px;
-    display: block;
-    margin: 8px auto;
-    text-decoration: none;
-    width: 85%;
-    font-size: 14px;
-    transition: 0.2s;
+    border: none;
+    text-align: center;
 }
-.button:hover {
-    background: #3B82F6;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(37,99,235,0.4);
-}
-
-.button.secondary {
-    background: transparent;
-    border: 1px solid #4B5563;
-}
-.button.secondary:hover {
-    background: #111827;
-}
-
-/* Social buttons container */
-.social-row {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 6px;
-    flex-wrap: wrap;
-}
-.social-btn {
-    background: #020617;
-    border-radius: 999px;
-    padding: 7px 11px;
-    font-size: 12px;
-    color: #E5E7EB;
-    text-decoration: none;
-    border: 1px solid #1f2937;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-}
-.social-btn span {
-    font-size: 14px;
-}
-.social-btn:hover {
-    background: #111827;
-}
-
-/* Small footer */
-.footer-note {
+#unlockBtn {
     margin-top: 10px;
-    font-size: 11px;
-    color: #6B7280;
+    width: 70%;
+    max-width: 260px;
+    border-radius: 999px;
+}
+.small {
+    font-size: 12px;
+    color: #9CA3AF;
+    margin-top: 8px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-    <img id="profilePhoto" src="">
-
-    <h2 id="name"></h2>
-    <h3 id="title"></h3>
-
-    <p class="info" id="company"></p>
-    <p class="info" id="bio"></p>
-
-    <p class="subtle" id="location"></p>
-
-    <a id="callButton" class="button" href="#">📞 Call</a>
-    <a id="emailButton" class="button" href="#">✉️ Email</a>
-    <a id="websiteButton" class="button secondary" href="#">🌐 Website</a>
-    <a id="vcardButton" class="button secondary" href="#" onclick="generateVCard(); return false;">💾 Save Contact</a>
-
-    <div class="social-row">
-        <a id="linkedinBtn" class="social-btn" href="#" target="_blank" style="display:none;">
-            <span>🔗</span><span>LinkedIn</span>
-        </a>
-        <a id="instagramBtn" class="social-btn" href="#" target="_blank" style="display:none;">
-            <span>📸</span><span>Instagram</span>
-        </a>
-        <a id="facebookBtn" class="social-btn" href="#" target="_blank" style="display:none;">
-            <span>📘</span><span>Facebook</span>
-        </a>
-        <a id="tiktokBtn" class="social-btn" href="#" target="_blank" style="display:none;">
-            <span>🎵</span><span>TikTok</span>
-        </a>
-    </div>
-
-    <div class="footer-note">
-        Tap buttons to call, email, or save contact.
-    </div>
+<div id="lockScreen">
+    <h2>Private Editor</h2>
+    <p class="small">Enter your access code to edit this digital business card.</p>
+    <input id="unlockInput" type="password" placeholder="Access Code">
+    <button id="unlockBtn" onclick="unlock()">Unlock</button>
 </div>
+
+<div id="editor" style="display:none;">
+    <h2>Edit Your Business Card</h2>
+
+    <label>Name</label>
+    <input id="nameInput" placeholder="Your Name">
+
+    <label>Title / Position</label>
+    <input id="titleInput" placeholder="Title / Position">
+
+    <label>Company</label>
+    <input id="companyInput" placeholder="Company (optional)">
+
+    <label>Location / City</label>
+    <input id="locationInput" placeholder="City, State (optional)">
+
+    <label>Short Bio</label>
+    <textarea id="bioInput" placeholder="Short bio"></textarea>
+
+    <label>Phone Number</label>
+    <input id="phoneInput" placeholder="Phone Number">
+
+    <label>Email Address</label>
+    <input id="emailInput" placeholder="Email Address">
+
+    <label>Website URL</label>
+    <input id="websiteInput" placeholder="https://...">
+
+    <label>LinkedIn URL</label>
+    <input id="linkedinInput" placeholder="https://www.linkedin.com/in/...">
+
+    <label>Instagram URL</label>
+    <input id="instagramInput" placeholder="https://www.instagram.com/...">
+
+    <label>Facebook URL</label>
+    <input id="facebookInput" placeholder="https://www.facebook.com/...">
+
+    <label>TikTok URL</label>
+    <input id="tiktokInput" placeholder="https://www.tiktok.com/@...">
+
+    <label style="margin-top:10px;">Upload Photo (portrait):</label>
+    <input type="file" accept="image/*" id="photoFile">
+
+    <button onclick="saveCard()">Save</button>
+</div>
+
+<script>
+/* ⭐ Change this to whatever password you want */
+const ACCESS_CODE = "Star2025";
+
+function unlock() {
+    const entered = document.getElementById("unlockInput").value;
+    if (entered === ACCESS_CODE) {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("editor").style.display = "block";
+        loadForm();
+    } else {
+        alert("Incorrect code");
+    }
+}
+</script>
 
 <script src="script.js"></script>
 
