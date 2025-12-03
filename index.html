@@ -7,65 +7,125 @@
 
 <style>
 body {
-    background: #0A0F1F; /* Dark navy */
+    background: #020617; /* deep navy/black */
     font-family: Arial, sans-serif;
     color: white;
     padding: 20px;
     text-align: center;
 }
 
-.card {
-    background: #111827;
-    border-radius: 15px;
-    padding: 25px;
-    max-width: 400px;
-    margin: auto;
-    box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+/* Fade-in animation */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-img {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
+.card {
+    background: #0b1220;
+    border-radius: 18px;
+    padding: 28px 22px 24px;
+    max-width: 430px;
+    margin: auto;
+    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+    animation: fadeInUp 0.6s ease-out;
+    border: 1px solid rgba(148,163,184,0.2);
+}
+
+/* Portrait photo like the one you sent */
+#profilePhoto {
+    width: 220px;
+    max-width: 75%;
+    aspect-ratio: 3/4;
+    height: auto;
+    border-radius: 16px;
     object-fit: cover;
-    border: 4px solid #1E3A8A; /* Navy border */
+    border: 4px solid #1E3A8A;
+    box-shadow: 0 0 15px rgba(15,23,42,0.8);
 }
 
 h2 {
-    margin: 15px 0 5px;
+    margin: 18px 0 4px;
     font-size: 26px;
 }
 
 h3 {
-    margin: 5px 0;
+    margin: 4px 0 6px;
     font-weight: normal;
     color: #9CA3AF;
+    font-size: 16px;
 }
 
 .info { 
-    margin: 10px 0; 
-    color: #D1D5DB;
+    margin: 6px 0; 
+    color: #E5E7EB;
+    font-size: 14px;
 }
 
+.subtle {
+    color: #9CA3AF;
+    font-size: 13px;
+}
+
+/* Buttons */
 .button {
     background: #1E3A8A;
     color: white;
-    padding: 12px 18px;
-    border-radius: 8px;
+    padding: 11px 16px;
+    border-radius: 999px;
     display: block;
-    margin: 10px auto;
+    margin: 8px auto;
     text-decoration: none;
-    width: 80%;
+    width: 85%;
+    font-size: 14px;
+    transition: 0.2s;
 }
 .button:hover {
     background: #3B82F6;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(37,99,235,0.4);
 }
 
-.edit-btn {
-    background: black;
-    margin-top: 20px;
+.button.secondary {
+    background: transparent;
+    border: 1px solid #4B5563;
+}
+.button.secondary:hover {
+    background: #111827;
 }
 
+/* Social buttons container */
+.social-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+.social-btn {
+    background: #020617;
+    border-radius: 999px;
+    padding: 7px 11px;
+    font-size: 12px;
+    color: #E5E7EB;
+    text-decoration: none;
+    border: 1px solid #1f2937;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.social-btn span {
+    font-size: 14px;
+}
+.social-btn:hover {
+    background: #111827;
+}
+
+/* Small footer */
+.footer-note {
+    margin-top: 10px;
+    font-size: 11px;
+    color: #6B7280;
+}
 </style>
 </head>
 
@@ -80,11 +140,31 @@ h3 {
     <p class="info" id="company"></p>
     <p class="info" id="bio"></p>
 
-    <a id="callButton" class="button" href="#">Call</a>
-    <a id="emailButton" class="button" href="#">Email</a>
-    <a id="websiteButton" class="button" href="#">Website</a>
+    <p class="subtle" id="location"></p>
 
-    <a href="edit.html" class="button edit-btn">Edit Card</a>
+    <a id="callButton" class="button" href="#">📞 Call</a>
+    <a id="emailButton" class="button" href="#">✉️ Email</a>
+    <a id="websiteButton" class="button secondary" href="#">🌐 Website</a>
+    <a id="vcardButton" class="button secondary" href="#" onclick="generateVCard(); return false;">💾 Save Contact</a>
+
+    <div class="social-row">
+        <a id="linkedinBtn" class="social-btn" href="#" target="_blank" style="display:none;">
+            <span>🔗</span><span>LinkedIn</span>
+        </a>
+        <a id="instagramBtn" class="social-btn" href="#" target="_blank" style="display:none;">
+            <span>📸</span><span>Instagram</span>
+        </a>
+        <a id="facebookBtn" class="social-btn" href="#" target="_blank" style="display:none;">
+            <span>📘</span><span>Facebook</span>
+        </a>
+        <a id="tiktokBtn" class="social-btn" href="#" target="_blank" style="display:none;">
+            <span>🎵</span><span>TikTok</span>
+        </a>
+    </div>
+
+    <div class="footer-note">
+        Tap buttons to call, email, or save contact.
+    </div>
 </div>
 
 <script src="script.js"></script>
