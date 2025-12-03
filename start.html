@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Create Your Digital Card</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    background: #0A0F1F;
+    color: white;
+    font-family: Arial;
+    padding: 20px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 11px;
+    margin: 8px 0;
+    border-radius: 8px;
+    background: #111827;
+    color: white;
+    border: 1px solid #374151;
+}
+
+button {
+    background: #1E3A8A;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+</style>
+</head>
+<body>
+
+<h2>Create Your Digital Business Card</h2>
+
+<input id="nameInput" placeholder="Your Name">
+<input id="titleInput" placeholder="Your Title">
+<input id="companyInput" placeholder="Company">
+<textarea id="bioInput" placeholder="Short Bio"></textarea>
+<input id="phoneInput" placeholder="Phone Number">
+<input id="emailInput" placeholder="Email Address">
+<input id="websiteInput" placeholder="Website URL">
+
+<label>Upload Photo</label>
+<input id="photoFile" type="file" accept="image/*">
+
+<button onclick="saveAndOpen()">Generate My Card</button>
+
+<script>
+function saveAndOpen() {
+    const fields = ["name","title","company","bio","phone","email","website"];
+    fields.forEach(id => {
+        const val = document.getElementById(id + "Input").value;
+        localStorage.setItem(id, val);
+    });
+
+    const file = document.getElementById("photoFile").files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            localStorage.setItem("photo", e.target.result);
+            window.location.href = "index.html";
+        };
+        reader.readAsDataURL(file);
+    } else {
+        window.location.href = "index.html";
+    }
+}
+</script>
+
+</body>
+</html>
