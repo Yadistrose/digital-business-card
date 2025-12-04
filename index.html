@@ -63,6 +63,9 @@ h3 { color: #9CA3AF; margin: 4px; font-size: 16px; }
     background: transparent;
     border: 1px solid #4B5563;
 }
+.button.secondary:hover {
+    background: #1E3A8A;
+}
 
 .social-row {
     display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
@@ -99,6 +102,9 @@ h3 { color: #9CA3AF; margin: 4px; font-size: 16px; }
     <a class="button" href="mailto:gregoryst.rose@gmail.com">✉️ Email</a>
     <a class="button secondary" href="https://tally.so/r/xXVldy" target="_blank">🌐 Website</a>
 
+    <!-- ⭐ NEW SHARE BUTTON -->
+    <a class="button secondary" href="#" onclick="shareCard(); return false;">🔗 Share Card</a>
+
     <!-- Social buttons -->
     <div class="social-row">
         <a class="social-btn" href="https://linkedin.com/in/gsaintrose" target="_blank">LinkedIn</a>
@@ -106,6 +112,23 @@ h3 { color: #9CA3AF; margin: 4px; font-size: 16px; }
     </div>
 
 </div>
+
+<script>
+// ⭐ SHARE FUNCTION
+function shareCard() {
+    const shareData = {
+        title: "Gregory St. Rose - Insurance Broker",
+        text: "View Gregory St. Rose’s digital business card:",
+        url: "https://digital-business-card-five-theta.vercel.app/"
+    };
+
+    if (navigator.share) {
+        navigator.share(shareData).catch(err => console.log("Share failed:", err));
+    } else {
+        alert("Sharing not supported on this device.");
+    }
+}
+</script>
 
 </body>
 </html>
