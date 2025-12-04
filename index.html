@@ -58,6 +58,8 @@ h3 { color: #9CA3AF; margin: 4px; font-size: 16px; }
     text-decoration: none;
     width: 85%;
     font-size: 14px;
+    border: none;
+    cursor: pointer;
 }
 .button.secondary {
     background: transparent;
@@ -79,6 +81,11 @@ h3 { color: #9CA3AF; margin: 4px; font-size: 16px; }
     font-size: 12px;
     text-decoration: none;
 }
+.footer-note {
+    margin-top: 10px;
+    font-size: 11px;
+    color: #6B7280;
+}
 </style>
 </head>
 
@@ -86,24 +93,25 @@ h3 { color: #9CA3AF; margin: 4px; font-size: 16px; }
 
 <div class="card">
 
-    <img id="profilePhoto" src="preview.jpg">
+    <img id="profilePhoto" src="preview.jpg" alt="Photo of Gregory St. Rose">
 
     <h2>Gregory St. Rose</h2>
     <h3>Insurance Broker</h3>
-    <p class="info"></p>
+    <p class="info">Legacy Insurance</p>
     <p class="info">
-    Experienced insurance broker dedicated to helping individuals and families protect what matters most.
-    Known for clear communication, trusted guidance, and personalized coverage solutions that truly fit each client’s needs.
+        Experienced insurance broker dedicated to helping individuals and families protect what matters most.
+        Known for clear communication, trusted guidance, and personalized coverage solutions that truly fit each client’s needs.
     </p>
     <p class="info">Lakeland, FL</p>
 
     <!-- Contact Buttons -->
     <a class="button" href="tel:8633991706">📞 Call</a>
     <a class="button" href="mailto:gregoryst.rose@gmail.com">✉️ Email</a>
-    <a class="button secondary" href="https://tally.so/r/xXVldy" target="_blank">🌐 Website</a>
+    <a class="button secondary" href="https://tally.so/r/xXVldy" target="_blank">🌐 Website / Lead Form</a>
 
-    <!-- ⭐ NEW SHARE BUTTON -->
-    <a class="button secondary" href="#" onclick="shareCard(); return false;">🔗 Share Card</a>
+    <!-- New: Save Contact & Share -->
+    <button class="button secondary" onclick="saveContact()">💾 Save Contact</button>
+    <button class="button secondary" onclick="shareCard()">🔗 Share Card</button>
 
     <!-- Social buttons -->
     <div class="social-row">
@@ -111,10 +119,39 @@ h3 { color: #9CA3AF; margin: 4px; font-size: 16px; }
         <a class="social-btn" href="https://www.facebook.com/gstrose" target="_blank">Facebook</a>
     </div>
 
+    <div class="footer-note">
+        Tip: You can program this link into an NFC card to share instantly:<br>
+        digital-business-card-five-theta.vercel.app
+    </div>
 </div>
 
 <script>
-// ⭐ SHARE FUNCTION
+// 💾 Generate and download vCard for Gregory
+function saveContact() {
+    const vcard =
+        "BEGIN:VCARD\n" +
+        "VERSION:3.0\n" +
+        "FN:Gregory St. Rose\n" +
+        "ORG:Legacy Insurance\n" +
+        "TITLE:Insurance Broker\n" +
+        "TEL;TYPE=CELL:8633991706\n" +
+        "EMAIL:gregoryst.rose@gmail.com\n" +
+        "URL:https://tally.so/r/xXVldy\n" +
+        "END:VCARD\n";
+
+    const blob = new Blob([vcard], { type: "text/vcard" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Gregory-St-Rose.vcf";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// 🔗 Native share for mobile
 function shareCard() {
     const shareData = {
         title: "Gregory St. Rose - Insurance Broker",
@@ -125,7 +162,7 @@ function shareCard() {
     if (navigator.share) {
         navigator.share(shareData).catch(err => console.log("Share failed:", err));
     } else {
-        alert("Sharing not supported on this device.");
+        alert("Sharing is not supported on this device. You can copy and share this link:\n\nhttps://digital-business-card-five-theta.vercel.app/");
     }
 }
 </script>
