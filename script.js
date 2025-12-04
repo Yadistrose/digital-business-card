@@ -1,85 +1,150 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Edit Card (Private)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* =============================
+   LOAD CARD DATA ON VIEW PAGE
+==============================*/
+function loadCard() {
+    const fields = ["name", "title", "company", "bio", "location"];
 
-<style>
-body { background:#020617; color:white; font-family:Arial; padding:20px; }
+    fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = localStorage.getItem(id) || "";
+    });
 
-input,textarea {
-    width:100%; padding:11px; margin:8px 0;
-    border-radius:8px; background:#020617; color:#E5E7EB;
-    border:1px solid #1f2937;
-}
-textarea { min-height:70px; }
+    const phone = localStorage.getItem("phone");
+    const email = localStorage.getItem("email");
+    const website = localStorage.getItem("website");
 
-button {
-    background:#1E3A8A; color:white; padding:12px;
-    width:100%; border-radius:8px; margin-top:15px;
-}
+    if (phone) document.getElementById("callButton").href = `tel:${phone}`;
+    if (email) document.getElementById("emailButton").href = `mailto:${email}`;
+    if (website) document.getElementById("websiteButton").href = website;
 
-/* Password lock */
-#lockScreen {
-    position:fixed; top:0; left:0; width:100%; height:100%;
-    background:#020617; display:flex; flex-direction:column;
-    justify-content:center; align-items:center; text-align:center;
-}
-#unlockInput {
-    padding:12px; width:70%; max-width:250px; border-radius:999px;
-    border:none; text-align:center;
-}
-</style>
-</head>
+    // Social Media Buttons
+    setSocialLink("linkedin", "linkedinBtn");
+    setSocialLink("instagram", "instagramBtn");
+    setSocialLink("facebook", "facebookBtn");
+    setSocialLink("tiktok", "tiktokBtn");
 
-<body>
-
-<div id="lockScreen">
-    <h2>Private Editor</h2>
-    <input id="unlockInput" type="password" placeholder="Access Code">
-    <button onclick="unlock()">Unlock</button>
-</div>
-
-<div id="editor" style="display:none;">
-    <h2>Edit Business Card</h2>
-
-    <input id="nameInput" placeholder="Name">
-    <input id="titleInput" placeholder="Title">
-    <input id="companyInput" placeholder="Company">
-    <input id="locationInput" placeholder="Location">
-    <textarea id="bioInput" placeholder="Short bio"></textarea>
-
-    <input id="phoneInput" placeholder="Phone">
-    <input id="emailInput" placeholder="Email">
-    <input id="websiteInput" placeholder="Website">
-
-    <input id="linkedinInput" placeholder="LinkedIn URL">
-    <input id="instagramInput" placeholder="Instagram URL">
-    <input id="facebookInput" placeholder="Facebook URL">
-    <input id="tiktokInput" placeholder="TikTok URL">
-
-    <label>Upload Photo</label>
-    <input id="photoFile" type="file" accept="image/*">
-
-    <button onclick="saveCard()">Save</button>
-</div>
-
-<script>
-const ACCESS_CODE = "Star2025";
-
-function unlock() {
-    if (document.getElementById("unlockInput").value === ACCESS_CODE) {
-        document.getElementById("lockScreen").style.display = "none";
-        document.getElementById("editor").style.display = "block";
-        loadForm();
-    } else {
-        alert("Incorrect code");
+    // Load Profile Photo
+    const photo = localStorage.getItem("photo");
+    if (photo) {
+        const img = document.getElementById("profilePhoto");
+        if (img) img.src = photo;
     }
 }
-</script>
 
-<script src="script.js"></script>
+function setSocialLink(field, btnId) {
+    const url = localStorage.getItem(field);
+    const btn = document.getElementById(btnId);
+    if (btn) {
+        if (url) {
+            btn.style.display = "inline-block";
+            btn.href = url;
+        } else {
+            btn.style.display = "none";
+        }
+    }
+}
 
-</body>
-</html>
+
+/* =============================
+   LOAD FORM DATA IN EDITOR
+==============================*/
+function loadForm() {
+    const fields = [
+        "name", "title", "company", "location", "bio",
+        "phone", "email", "website",
+        "linkedin", "instagram", "facebook", "tiktok"
+    ];
+
+    fields.forEach(id => {
+        const input = document.getElementById(id + "Input");
+        if (input) input.value = localStorage.getItem(id) || "";
+    });
+}
+
+
+/* =============================
+   SAVE CARD DATA
+==============================*/
+function saveCard() {
+    const fields = [
+        "name", "title", "company", "location", "bio",
+        "phone", "email", "website",
+        "linkedin", "instagram", "facebook", "tiktok"
+    ];
+
+    // Save text inputs
+    fields.forEach(id => {
+        const input = document.getElementById(id + "Input");
+        if (input) localStorage.setItem(id, input.value);
+    });
+
+    // Save uploaded photo
+    const fileInput = document.getElementById("photoFile");
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            localStorage.setItem("photo", e.target.result);
+            alert("Saved successfully!");
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert("Saved successfully!");
+    }
+}
+
+
+/* =============================
+   SHARE BUTTON
+==============================*/
+function shareCard() {
+    const shareData = {
+        title: localStorage.getItem("name") || "My Digital Business Card",
+        text: "Check out my digital business card:",
+        url: window.location.href
+    };
+
+    if (navigator.share) {
+        navigator.share(shareData).catch(console.error);
+    } else {
+        alert("Sharing not supported on this device.");
+    }
+}
+
+
+/* =============================
+   VCARD DOWNLOAD
+==============================*/
+function generateVCard() {
+    const fields = {
+        FN: localStorage.getItem("name"),
+        TITLE: localStorage.getItem("title"),
+        ORG: localStorage.getItem("company"),
+        TEL: localStorage.getItem("phone"),
+        EMAIL: localStorage.getItem("email"),
+        URL: localStorage.getItem("website")
+    };
+
+    let vcard = "BEGIN:VCARD\nVERSION:3.0\n";
+    for (const key in fields) {
+        if (fields[key]) vcard += `${key}:${fields[key]}\n`;
+    }
+    vcard += "END:VCARD";
+
+    const blob = new Blob([vcard], { type: "text/vcard" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "contact.vcf";
+    a.click();
+}
+
+
+/* =============================
+   INIT: Only run loadCard on index
+==============================*/
+if (!window.location.pathname.includes("edit")) {
+    loadCard();
+}
